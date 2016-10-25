@@ -5,14 +5,14 @@ class Pet
     @awork = false
     @belly = 0
     @intestine = 0
-    puts "Hello, my name is #{name}. I am your new pet"
+    puts "Hello, my name is #{@name}. I am your new pet"
     @eat = ['banana', 'peach', 'orange', 'lime', 'strawberry', 'watermelon', 'cherry', 'mango', 'grapefruit']
     @random = @eat[rand(@eat.length)]
     @happy = 0
   end
 
   def feed
-    puts "You cuts #{@random} and give piece to #{name}."
+    puts "You cuts #{@random} and give piece to #{@name}."
     @happy = 5
     @belly = 10
     passage
@@ -116,8 +116,7 @@ class Pet
       puts "#{@name} see the restroom and think where is my rocket."
     end
   end
+  def call(env)
+    [200, {"Content-Type" => "text/html"}, ["test"]]
+  end
 end
-
-a = Pet.new("Rabbit")
-a.walk
-a.happy
