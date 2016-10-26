@@ -1,4 +1,3 @@
-
 class Pet
    # this is 'class vaiable'
   # template to share it among all pages (do not repeat yourself) ;)
@@ -11,37 +10,37 @@ class Pet
     @happy = 10
   end
 
-  @@eatPet = "<br>" +
+  @@eat_pet = "<br>" +
   "<p>(\\(\\<br>" +
   "(O.o)<br>" +
   " EAT <br>" +
   "o_ _o</p>"
 
-  @@sleepPet = "<br>" +
+  @@sleep_pet = "<br>" +
   "<p>(\\(\\   z Z<br>" +
   "(-.-) z Z<br>" +
   "o_(\")(\")</p>"
 
-  @@happyPet = "<br>" +
+  @@happy_pet = "<br>" +
   "<p>(\\(\\This is good<br>" +
   "(^.^)/***\\<br>" +
   "o_______(\")(\")</p>"
 
-  @@walkPet = "<br>" +
-  "<p>(\\(\\ Lets play<br>" +
+  @@walk_pet = "<br>" +
+  "<p>(\\(\\<br>" +
   "(^.^)<br>" +
   "(\")(\")_____<br>" +
   "\\________/<br>" +
   "__O__O__</p>"
 
-  @@workPet = "<br>" +
+  @@work_pet = "<br>" +
   "<p>Lets work<br>" +
   "(\\(\\<br>" +
   "(O.O)<br>" +
   "====<br>" +
   "(\")(\")</p>"
 
-  @@rocketPet = "<br>" +
+  @@restroom_pet = "<br>" +
   "(\\(\\<br>" +
   "(O.O)<br>" +
   "o_(\")(\")<br>" +
@@ -50,8 +49,8 @@ class Pet
   def feed
     @eat = ['banana', 'peach', 'orange', 'lime', 'strawberry', 'watermelon', 'cherry', 'mango', 'grapefruit']
     @random = @eat[rand(@eat.length)]
-    @randomFruit = "You cuts #{@random} and give piece to #{@name}."
-    puts @randomFruit
+    @random_fruit = "You cuts #{@random} and give piece to #{@name}."
+    puts @random_fruit
     @happy = @happy + 2
     @belly = @belly + 2
     passage
@@ -60,8 +59,8 @@ class Pet
 
   def walk
     puts "\n(\\(\\ Lets play\n(^.^)\n(\")(\")____\n\\________/\n__O__O__\n "
-    @walkWithYou = "You and #{@name} take your skate and go to walk."
-    puts @walkWithYou
+    @walk_with_you = "You and #{@name} take your skate and go to walk."
+    puts @walk_with_you
     @happy = @happy + 2
     passage
   end
@@ -76,12 +75,12 @@ class Pet
     end
   end
 
-  def sleepp
+  def dream
     puts "\n(\\(\\   z Z\n(-.-) z Z\no_(\")(\")\n "
-    @wantSleep = "#{@name} is so tired and want to sleep."
+    @want_sleep = "#{@name} is so tired and want to sleep."
     @asleep = true
     c = rand(20) + 1
-    @sleepHours = "After #{c} hours #{@name} wake up."
+    @sleep_hours = "After #{c} hours #{@name} wake up."
     c.times do
       if @asleep
         passage
@@ -90,15 +89,15 @@ class Pet
         puts "z " * c
       end
     end
-    puts @wantSleep
+    puts @want_sleep
     if @asleep
       @asleep = false
-      puts @sleepHours
+      puts @sleep_hours
     end
   end
 
   def work
-    puts "\nLets work\n(\\(\\\n(O.O)\n====\n(\")(\")\n "
+    puts "\nLets work\n(\\(\\\n(O.O)\n====\n(\")(\")\n"
     @awork = true
     x = rand(24) + 1
     x.times do
@@ -109,8 +108,8 @@ class Pet
     puts "#{@name} go to work."
     if @awork
       @awork = false
-      @workHours = "After #{x} hours #{@name} decide to rest."
-      puts @workHours
+      @work_hours = "After #{x} hours #{@name} decide to rest."
+      puts @work_hours
     end
   end
 
@@ -135,7 +134,7 @@ class Pet
     else
       if @asleep
         @asleep = false
-        puts @sleepHours
+        puts @sleep_hours
         puts "#{@name} wake up and want to eat and play."
       end
       puts "#{@name} go to the kitchen and eat #{@random}."
@@ -166,7 +165,7 @@ class Pet
   end
 
   def call(env)
-    @@petStatus = "<hr><p>belly:#{@belly}</p><hr><p>happy:#{@happy}</p><hr><p>intestine:#{@intestine}</p><hr>"
+    @@pet_status = "<hr><p>belly:#{@belly}</p><hr><p>happy:#{@happy}</p><hr><p>intestine:#{@intestine}</p><hr>"
     req = Rack::Request.new(env)
     case req.path_info
     when /feed/
@@ -174,24 +173,24 @@ class Pet
       # do something with your Pet
       # store updated data to file || table || database || session
       # and render to the web:
-      [200, {"Content-Type" => "text/html"}, ["<h1>I want to eat</h1><h2>#{@randomFruit}</h2>#{@@eatPet}#{@@petStatus}"]]
-    when /sleep/
-      sleepp
-      [200, {"Content-Type" => "text/html"}, ["<h1>#{@wantSleep}</h1><h2>#{@sleepHours}</h2>#{@@sleepPet}#{@@petStatus}"]]
+      [200, {"Content-Type" => "text/html"}, ["<h1>I want to eat</h1><h2>#{@random_fruit}</h2>#{@@eat_pet}#{@@pet_status}"]]
+    when /dream/
+      dream
+      [200, {"Content-Type" => "text/html"}, ["<h1>#{@want_sleep}</h1><h2>#{@sleep_hours}</h2>#{@@sleep_pet}#{@@pet_status}"]]
     when /work/
       work
-      [200, {"Content-Type" => "text/html"}, ["<h1>I have some work</h1><h2>#{@workHours}</h2>#{@@workPet}#{@@petStatus}"]]
+      [200, {"Content-Type" => "text/html"}, ["<h1>I have some work</h1><h2>#{@work_hours}</h2>#{@@work_pet}#{@@pet_status}"]]
     when /happy/
       happy
-      [200, {"Content-Type" => "text/html"}, ["<h1>I'm so HAPPY</h1>#{@@happyPet}#{@@petStatus}"]]
+      [200, {"Content-Type" => "text/html"}, ["<h1>I'm so HAPPY</h1>#{@@happy_pet}#{@@pet_status}"]]
     when /walk/
       walk
-      [200, {"Content-Type" => "text/html"}, ["<h1>Lets go to the park</h1><h2>#{@walkWithYou}</h2>#{@@walkPet}#{@@petStatus}"]]
+      [200, {"Content-Type" => "text/html"}, ["<h1>Lets go to the park</h1><h2>#{@walk_with_you}</h2>#{@@walk_pet}#{@@pet_status}"]]
     when /restroom/
       restroom
-      [200, {"Content-Type" => "text/html"}, ["<h1>#{@name} go to the restroom</h1>#{@@rocketPet}#{@@petStatus}"]]
+      [200, {"Content-Type" => "text/html"}, ["<h1>#{@name} go to the restroom</h1>#{@@restroom_pet}#{@@pet_status}"]]
     else
-      [404, {"Content-Type" => "text/html"}, ["<h1>Hello! I'm a your new friend. My name is #{@name}.</h1><br><ul><li><a href = \"/feed\">I want to eat</a></li><li><a href = \"/work\">I have some work</a></li><li><a href = \"/happy\">I'm so happy</a></li><li><a href = \"/walk\">I want to walk</a></li><li><a href = \"/sleep\">I want to sleep</a></li><li><a href = \"/restroom\">WC</a></li></ul>"]]
+      [404, {"Content-Type" => "text/html"}, ["<h1>Hello! I'm a your new friend. My name is #{@name}.</h1><br><ul><li><a href = \"/feed\">I want to eat</a></li><li><a href = \"/work\">I have some work</a></li><li><a href = \"/happy\">I'm so happy</a></li><li><a href = \"/walk\">I want to walk</a></li><li><a href = \"/dream\">I want to sleep</a></li><li><a href = \"/restroom\">WC</a></li></ul>"]]
     end
   end
 end
